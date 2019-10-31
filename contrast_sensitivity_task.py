@@ -36,7 +36,7 @@ os.chdir(_thisDir)
 # Store info about the experiment session
 psychopyVersion = '3.2.4'
 expName = 'contrast_sensitivity_task'  # from the Builder filename that created this script
-expInfo = {'Gender':'','Participant':time.strftime("%Y%m%d%H%M%S")}
+expInfo = {'Gender':'%s','Participant':time.strftime("%Y%m%d%H%M%S")}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -89,7 +89,7 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see black and white stripes which are horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nIf you don't see anything then guess! \n \n \nNext you will have several pratice trials. Press any key to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n \nNext you will have several pratice trials. Press any key to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -126,7 +126,7 @@ fd_instructions = visual.TextStim(win=win, name='fd_instructions',
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nPress RIGHT or LEFT button if you see horizontal grating.\nPress UP or DOWN button if you see vertical grating.\nIf you don't see anything then guess! No more feedback will be provided. Take your time and get the response as accurate as possible.\n \n Press any key to continue.",
+    text="Good job!\n\nPress RIGHT or LEFT button if you see horizontal stripes.\nPress UP or DOWN button if you see vertical stripes.\nThe trials may become harder and harder. If you don't see anything then guess! No feedback will be provided. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press any key to get started!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -790,7 +790,6 @@ for current_run in total_run:
         # the Routine "trial" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         thisExp.nextEntry()
-
 # all staircases completed
 
 # ------Prepare to start Routine "thanks"-------
