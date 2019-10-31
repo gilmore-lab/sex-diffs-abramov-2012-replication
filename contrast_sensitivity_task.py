@@ -295,6 +295,7 @@ for level, condition in loop_practice:
     grating.setSF(SF)
     resp.keys = []
     resp.rt = []
+    start_time = clock.getTime()
     # keep track of which components have finished
     trialComponents = [fixation, grating, resp]
     for thisComponent in trialComponents:
@@ -345,13 +346,15 @@ for level, condition in loop_practice:
             grating.tStartRefresh = tThisFlipGlobal  # on global time
             grating.phase = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
             # Contrast ramp in, hold, down
-            secs_passed = clock.getTime()-t
+            secs_passed = clock.getTime()-start_time-1
             if secs_passed <= ramp_up_secs:
                 this_contr = (secs_passed/ramp_up_secs)*level
             elif (secs_passed > ramp_up_secs) & (secs_passed <= ramp_up_secs + full_scale_secs):
                 this_contr = level
-            else:
+            elif (secs_passed > ramp_up_secs+ full_scale_secs) & (secs_passed <= ramp_up_secs + full_scale_secs+ ramp_up_secs):
                 this_contr = ((stim_dur_secs - secs_passed)/ramp_up_secs)*level
+            else:
+                this_contr=0
             grating.color = this_contr
     #            win.timeOnFlip(grating, 'tStartRefresh')  # time at next scr refresh
             grating.draw()
@@ -637,6 +640,7 @@ for current_run in total_run:
         grating.setSF(SF)
         resp.keys = []
         resp.rt = []
+        start_time = clock.getTime()
         # keep track of which components have finished
         trialComponents = [fixation, grating, resp]
         for thisComponent in trialComponents:
@@ -684,19 +688,17 @@ for current_run in total_run:
                 grating.frameNStart = frameN  # exact frame index
                 grating.tStart = t  # local t and not account for scr refresh
                 grating.tStartRefresh = tThisFlipGlobal  # on global time
-    #       keep_going = True
-    #       start_time=clock.getTime()
-            #while keep_going:
-            # keep track of start time/frame for later
                 grating.phase = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
-            # Contrast ramp in, hold, down
-                secs_passed = clock.getTime()-t
+                # Contrast ramp in, hold, down
+                secs_passed = clock.getTime()-start_time-1
                 if secs_passed <= ramp_up_secs:
                     this_contr = (secs_passed/ramp_up_secs)*level
                 elif (secs_passed > ramp_up_secs) & (secs_passed <= ramp_up_secs + full_scale_secs):
                     this_contr = level
-                else:
+                elif (secs_passed > ramp_up_secs+ full_scale_secs) & (secs_passed <= ramp_up_secs + full_scale_secs+ ramp_up_secs):
                     this_contr = ((stim_dur_secs - secs_passed)/ramp_up_secs)*level
+                else:
+                    this_contr=0
                 grating.color = this_contr
         #            win.timeOnFlip(grating, 'tStartRefresh')  # time at next scr refresh
                 grating.draw()
