@@ -122,11 +122,14 @@ fd_instructions = visual.TextStim(win=win, name='fd_instructions',
     color='white', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=-1.0);
+beep = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
+    name='beep')
+beep.setVolume(1)
 
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nPress RIGHT or LEFT button if you see horizontal stripes.\nPress UP or DOWN button if you see vertical stripes.\nThe trials may become harder and harder. If you don't see anything then guess! No feedback will be provided. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press any key to get started!",
+    text="Good job!\n\nRIGHT or LEFT for horizontal stripes.\n UP or DOWN button for vertical stripes.\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press any key to get started!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -149,6 +152,7 @@ grating = visual.GratingStim(
     color='white', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
 resp = keyboard.Keyboard()
+intru_break = visual.TextStim(win, pos=[0, 0], text = 'Press any key to continue.')
 
 # Initialize components for Routine "thanks"
 thanksClock = core.Clock()
@@ -265,9 +269,18 @@ thisExp.nextEntry()
 routineTimer.reset()
 
 # set up handler to look after randomisation of trials etc
-conditions = data.importConditions('stairDefinitions.xlsx')
+conditions = [
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':1.2, 'TF':4},
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':12, 'TF':4},
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':8, 'TF':4},
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':10, 'TF':4}
+]
 loop_practice = data.MultiStairHandler(stairType='QUEST', name='loop_practice',
-    nTrials=5,
+    nTrials=3,
     conditions=conditions,
     originPath=-1)
 thisExp.addLoop(loop_practice)  # add the loop to the experiment
@@ -293,6 +306,7 @@ for level, condition in loop_practice:
     grating.setSize(stim_diam_degs)
     grating.setOri(ori)
     grating.setSF(SF)
+    cyc_secs = 1/TF
     resp.keys = []
     resp.rt = []
     start_time = clock.getTime()
@@ -344,7 +358,8 @@ for level, condition in loop_practice:
             grating.frameNStart = frameN  # exact frame index
             grating.tStart = t  # local t and not account for scr refresh
             grating.tStartRefresh = tThisFlipGlobal  # on global time
-            grating.phase = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
+            grating.contrast = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
+            # grating.phase= round(np.mod(clock.getTime(), cyc_secs)/cyc_secs)/2 # need value of 0 or 0.5 to switch phase
             # Contrast ramp in, hold, down
             secs_passed = clock.getTime()-start_time-1
             if secs_passed <= ramp_up_secs:
@@ -432,9 +447,12 @@ for level, condition in loop_practice:
     
     # ------Prepare to start Routine "feedback"-------
     routineTimer.add(2.000000)
+    beep.setSound('A', secs=0.3, hamming=True)
+    beep.setVolume(1, log=False)
     # update component parameters for each repeat
     if resp.corr==1:   #stored on last run routine
         msg="Correct!"
+        beep.play(when=win) 
     else:
         msg="Oops! That was wrong"
     fd_instructions.setText(msg)
@@ -618,7 +636,10 @@ for current_run in total_run:
     # initialise values for first condition
     level = loop_trial._nextIntensity  # initialise some vals
     condition = loop_trial.currentStaircase.condition
-
+    if current_run<3:
+        intru_break.draw()
+        win.flip()
+        event.waitKeys()
     current_run=current_run+1
     for level, condition in loop_trial:
         currentLoop = loop_trial
@@ -790,6 +811,13 @@ for current_run in total_run:
         # the Routine "trial" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         thisExp.nextEntry()
+        
+        # ------Prepare to start Routine "feedback"-------
+        beep.setSound('A', secs=0.15, hamming=True)
+        beep.setVolume(1, log=False)
+        # update component parameters for each repeat
+        if resp.corr==1:   #stored on last run routine
+            beep.play(when=win) 
 # all staircases completed
 
 # ------Prepare to start Routine "thanks"-------
