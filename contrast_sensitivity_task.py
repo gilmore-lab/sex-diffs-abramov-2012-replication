@@ -309,7 +309,6 @@ for level, condition in loop_practice:
     cyc_secs = 1/TF
     resp.keys = []
     resp.rt = []
-    start_time = clock.getTime()
     # keep track of which components have finished
     trialComponents = [fixation, grating, resp]
     for thisComponent in trialComponents:
@@ -321,6 +320,7 @@ for level, condition in loop_practice:
             thisComponent.status = NOT_STARTED
     # reset timers
     t = 0
+    start_time = clock.getTime()
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
     trialClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
     frameN = -1
@@ -358,8 +358,8 @@ for level, condition in loop_practice:
             grating.frameNStart = frameN  # exact frame index
             grating.tStart = t  # local t and not account for scr refresh
             grating.tStartRefresh = tThisFlipGlobal  # on global time
-            grating.contrast = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
-            # grating.phase= round(np.mod(clock.getTime(), cyc_secs)/cyc_secs)/2 # need value of 0 or 0.5 to switch phase
+            # grating.contrast = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
+            grating.phase= round(np.mod(clock.getTime(), cyc_secs)/cyc_secs)/2 # need value of 0 or 0.5 to switch phase
             # Contrast ramp in, hold, down
             secs_passed = clock.getTime()-start_time-1
             if secs_passed <= ramp_up_secs:
@@ -709,7 +709,8 @@ for current_run in total_run:
                 grating.frameNStart = frameN  # exact frame index
                 grating.tStart = t  # local t and not account for scr refresh
                 grating.tStartRefresh = tThisFlipGlobal  # on global time
-                grating.phase = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
+                # grating.phase = np.sin(2 * np.pi * clock.getTime() * this_tf) # from counterphase.py demo
+                grating.phase= round(np.mod(clock.getTime(), cyc_secs)/cyc_secs)/2 # need value of 0 or 0.5 to switch phase
                 # Contrast ramp in, hold, down
                 secs_passed = clock.getTime()-start_time-1
                 if secs_passed <= ramp_up_secs:
