@@ -89,7 +89,7 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n \nNext you will have several pratice trials. Press SPACE bar to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several pratice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -129,7 +129,7 @@ beep.setVolume(1)
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nRIGHT or LEFT for horizontal stripes.\n UP or DOWN button for vertical stripes.\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to get started!",
+    text="Good job!\n\nPay attention to the directions of the stripes, NOT their moving direction.\n\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to get started!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
