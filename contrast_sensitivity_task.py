@@ -36,7 +36,7 @@ os.chdir(_thisDir)
 # Store info about the experiment session
 psychopyVersion = '3.2.4'
 expName = 'contrast_sensitivity_task'  # from the Builder filename that created this script
-expInfo = {'Gender':'','Participant':time.strftime("%Y%m%d%H%M%S")}
+expInfo = {'Participant':time.strftime("%Y%m%d"),'Gender':''}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -76,7 +76,7 @@ expInfo['frameRate'] = win.getActualFrameRate()
 if expInfo['frameRate'] != None:
     frameDur = 1.0 / round(expInfo['frameRate'])
 else:
-    frameDur = 1.0 / 60.0  # could not measure, so guess
+    frameDur = 1.0 / 85.0  # could not measure, so guess
 # set up parameters
 ramp_up_secs=0.5
 full_scale_secs=1
@@ -89,7 +89,7 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n \nNext you will have several pratice trials. Press any key to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n \nNext you will have several pratice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -129,7 +129,7 @@ beep.setVolume(1)
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nRIGHT or LEFT for horizontal stripes.\n UP or DOWN button for vertical stripes.\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press any key to get started!",
+    text="Good job!\n\nRIGHT or LEFT for horizontal stripes.\n UP or DOWN button for vertical stripes.\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to get started!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -152,7 +152,7 @@ grating = visual.GratingStim(
     color='white', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
 resp = keyboard.Keyboard()
-intru_break = visual.TextStim(win, pos=[0, 0], text = 'Press any key to continue.')
+intru_break = visual.TextStim(win, pos=[0, 0], text = 'Well done! You have finished one session of trials. Press SPACE bar to continue.')
 
 # Initialize components for Routine "thanks"
 thanksClock = core.Clock()
