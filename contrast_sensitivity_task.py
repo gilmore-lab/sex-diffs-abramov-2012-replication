@@ -47,7 +47,7 @@ window_pix_h = 800
 window_pix_v = 600
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + 'data' + os.sep + '%s_%s' % (expInfo['Participant'],  expInfo['expName'])
+filename = _thisDir + os.sep + 'contrast_sensitivity_task_data' + os.sep + '%s_%s' % (expInfo['Participant'],  expInfo['expName'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -89,20 +89,21 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several pratice trials. Press SPACE bar to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT key if you see the stripes are horizontal, UP or DOWN key if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
 endInstructions = keyboard.Keyboard()
+instructions_practice=visual.TextStim(win, pos=[0, 0], text = 'Pay attention to the orientation of the stripes, NOT moving direction.The patches of stripes will automatically appear in the screen following the black dots.You do not need to press a button to generate it. \n\nLet us have a few more practice trials. Press SPACE bar to continue.')
 
 # Initialize components for Routine "trial"
 trialClock = core.Clock()
 fixation = visual.GratingStim(
     win=win, name='fixation',
     tex=None, mask='gauss',
-    ori=0, pos=[0, 0], size=1, sf=None, phase=0.0,
+    ori=0, pos=[0, 0], size=0.2, sf=None, phase=0.0,
     color='black', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-1.0)
 grating = visual.GratingStim(
@@ -124,7 +125,7 @@ fd_instructions = visual.TextStim(win=win, name='fd_instructions',
     depth=-1.0);
 beep = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='beep')
-beep.setVolume(1)
+beep.setVolume(0.5)
 
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
@@ -275,20 +276,24 @@ conditions = [
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':12, 'TF':4},
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':12, 'TF':4},
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':8, 'TF':4},
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':10, 'TF':4}
 ]
 loop_practice = data.MultiStairHandler(stairType='QUEST', name='loop_practice',
-    nTrials=3,
+    nTrials=2,
     conditions=conditions,
     originPath=-1)
 thisExp.addLoop(loop_practice)  # add the loop to the experiment
 # initialise values for first condition
 level = loop_practice._nextIntensity  # initialise some vals
 condition = loop_practice.currentStaircase.condition
+trial_n=0
 
 for level, condition in loop_practice:
+    trial_n+=1
     currentLoop = loop_practice
     # abbreviate parameter names if possible (e.g. rgb=condition.rgb)
     for paramName in condition:
@@ -296,7 +301,7 @@ for level, condition in loop_practice:
     
     # ------Prepare to start Routine "trial"-------
     # update component parameters for each repeat
-    if random()>0.5:
+    if random()>=0.5:
         ori = 90  #this is orientation of the grating
         correctAns = ['left','right']
     else:
@@ -447,8 +452,8 @@ for level, condition in loop_practice:
     
     # ------Prepare to start Routine "feedback"-------
     routineTimer.add(2.000000)
-    beep.setSound('A', secs=0.3, hamming=True)
-    beep.setVolume(1, log=False)
+    beep.setSound('A', secs=0.15, hamming=True)
+    beep.setVolume(0.5, log=False)
     # update component parameters for each repeat
     if resp.corr==1:   #stored on last run routine
         msg="Correct!"
@@ -521,6 +526,11 @@ for level, condition in loop_practice:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
+    if trial_n==5:
+        instructions_practice.draw()
+        win.flip()
+        event.waitKeys()
+        routineTimer.reset()
 # all staircases completed
 
 
@@ -649,7 +659,7 @@ for current_run in total_run:
         
         # ------Prepare to start Routine "trial"-------
         # update component parameters for each repeat
-        if random()>0.5:
+        if random()>=0.5:
             ori = 90  #this is orientation of the grating
             correctAns = ['left','right']
         else:
@@ -815,7 +825,7 @@ for current_run in total_run:
         
         # ------Prepare to start Routine "feedback"-------
         beep.setSound('A', secs=0.15, hamming=True)
-        beep.setVolume(1, log=False)
+        beep.setVolume(0.5, log=False)
         # update component parameters for each repeat
         if resp.corr==1:   #stored on last run routine
             beep.play(when=win) 
