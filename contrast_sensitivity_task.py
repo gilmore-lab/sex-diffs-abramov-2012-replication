@@ -36,7 +36,7 @@ os.chdir(_thisDir)
 # Store info about the experiment session
 psychopyVersion = '3.2.4'
 expName = 'contrast_sensitivity_task'  # from the Builder filename that created this script
-expInfo = {'Gender':'','Participant':time.strftime("%Y%m%d%H%M%S")}
+expInfo = {'Participant':time.strftime("%Y%m%d"),'Gender':''}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
 if dlg.OK == False:
     core.quit()  # user pressed cancel
@@ -47,7 +47,7 @@ window_pix_h = 800
 window_pix_v = 600
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + 'data' + os.sep + '%s_%s' % (expInfo['Participant'],  expInfo['expName'])
+filename = _thisDir + os.sep + 'contrast_sensitivity_task_data' + os.sep + '%s_%s' % (expInfo['Participant'],  expInfo['expName'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -76,7 +76,7 @@ expInfo['frameRate'] = win.getActualFrameRate()
 if expInfo['frameRate'] != None:
     frameDur = 1.0 / round(expInfo['frameRate'])
 else:
-    frameDur = 1.0 / 60.0  # could not measure, so guess
+    frameDur = 1.0 / 85.0  # could not measure, so guess
 # set up parameters
 ramp_up_secs=0.5
 full_scale_secs=1
@@ -89,20 +89,21 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT buttons if you see the stripes are horizontal, UP or DOWN button if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n \nNext you will have several pratice trials. Press any key to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT key if you see the stripes are horizontal, DOWN key if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
 endInstructions = keyboard.Keyboard()
+instructions_practice=visual.TextStim(win, pos=[0, 0], text = 'You need to detect the orientation of the stripes, NOT moving direction.The patches of stripes will automatically appear in the screen following the black dots.You do not need to press a button to generate it. \n\nLet us have a few more practice trials. Press SPACE bar to continue.')
 
 # Initialize components for Routine "trial"
 trialClock = core.Clock()
 fixation = visual.GratingStim(
     win=win, name='fixation',
     tex=None, mask='gauss',
-    ori=0, pos=[0, 0], size=1, sf=None, phase=0.0,
+    ori=0, pos=[0, 0], size=0.2, sf=None, phase=0.0,
     color='black', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-1.0)
 grating = visual.GratingStim(
@@ -124,12 +125,12 @@ fd_instructions = visual.TextStim(win=win, name='fd_instructions',
     depth=-1.0);
 beep = sound.Sound('A', secs=1.0, stereo=True, hamming=True,
     name='beep')
-beep.setVolume(1)
+beep.setVolume(0.5)
 
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nRIGHT or LEFT for horizontal stripes.\n UP or DOWN button for vertical stripes.\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press any key to get started!",
+    text="Good job!\n\nPay attention to the directions of the stripes, NOT their moving direction.\n\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to get started!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -152,7 +153,7 @@ grating = visual.GratingStim(
     color='white', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
 resp = keyboard.Keyboard()
-intru_break = visual.TextStim(win, pos=[0, 0], text = 'Press any key to continue.')
+intru_break = visual.TextStim(win, pos=[0, 0], text = 'Well done! You have finished one session of trials. Press SPACE bar to continue.')
 
 # Initialize components for Routine "thanks"
 thanksClock = core.Clock()
@@ -275,20 +276,24 @@ conditions = [
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':12, 'TF':4},
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
+    'stim_diam_degs': 3.5, 'SF':12, 'TF':4},
+    {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':8, 'TF':4},
     {'label':'practice', 'startVal':1, 'startValSd':0.1, 'pThreshold':.82, 'max_contr':.95, 'minVal':0, 'maxVal':1, 
     'stim_diam_degs': 3.5, 'SF':10, 'TF':4}
 ]
 loop_practice = data.MultiStairHandler(stairType='QUEST', name='loop_practice',
-    nTrials=3,
+    nTrials=2,
     conditions=conditions,
     originPath=-1)
 thisExp.addLoop(loop_practice)  # add the loop to the experiment
 # initialise values for first condition
 level = loop_practice._nextIntensity  # initialise some vals
 condition = loop_practice.currentStaircase.condition
+trial_n=0
 
 for level, condition in loop_practice:
+    trial_n+=1
     currentLoop = loop_practice
     # abbreviate parameter names if possible (e.g. rgb=condition.rgb)
     for paramName in condition:
@@ -296,12 +301,14 @@ for level, condition in loop_practice:
     
     # ------Prepare to start Routine "trial"-------
     # update component parameters for each repeat
-    if random()>0.5:
+    if random()>=0.5:
         ori = 90  #this is orientation of the grating
-        correctAns = ['left','right']
+        # correctAns = ['left','right']
+        correctAns = ['left']
     else:
         ori = 0
-        correctAns = ['up','down']
+        # correctAns = ['up','down']
+        correctAns = ['down']
     grating.setColor(level, colorSpace='rgb')
     grating.setSize(stim_diam_degs)
     grating.setOri(ori)
@@ -309,7 +316,6 @@ for level, condition in loop_practice:
     cyc_secs = 1/TF
     resp.keys = []
     resp.rt = []
-    start_time = clock.getTime()
     # keep track of which components have finished
     trialComponents = [fixation, grating, resp]
     for thisComponent in trialComponents:
@@ -321,6 +327,7 @@ for level, condition in loop_practice:
             thisComponent.status = NOT_STARTED
     # reset timers
     t = 0
+    start_time = clock.getTime()
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
     trialClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
     frameN = -1
@@ -390,7 +397,8 @@ for level, condition in loop_practice:
             win.callOnFlip(resp.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if resp.status == STARTED and not waitOnFlip:
-            theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+            # theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+            theseKeys = resp.getKeys(keyList=['left', 'down'], waitRelease=False)
             if len(theseKeys):
                 theseKeys = theseKeys[0]  # at least one key was pressed
                 
@@ -400,8 +408,9 @@ for level, condition in loop_practice:
                 resp.keys = theseKeys.name  # just the last key pressed
                 resp.rt = theseKeys.rt
                 # was this 'correct'?
-                if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
-                    resp.corr = 1
+                # if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                if ((resp.keys == 'left'and ori==90) or (resp.keys == 'down'and ori==0)):
+                   resp.corr = 1
                 else:
                     resp.corr = 0
                 # a response ends the routine
@@ -448,8 +457,8 @@ for level, condition in loop_practice:
     
     # ------Prepare to start Routine "feedback"-------
     routineTimer.add(2.000000)
-    beep.setSound('A', secs=0.3, hamming=True)
-    beep.setVolume(1, log=False)
+    beep.setSound('A', secs=0.15, hamming=True)
+    beep.setVolume(0.5, log=False)
     # update component parameters for each repeat
     if resp.corr==1:   #stored on last run routine
         msg="Correct!"
@@ -522,6 +531,11 @@ for level, condition in loop_practice:
             thisComponent.setAutoDraw(False)
     thisExp.nextEntry()
     
+    if trial_n==5:
+        instructions_practice.draw()
+        win.flip()
+        event.waitKeys()
+        routineTimer.reset()
 # all staircases completed
 
 
@@ -650,12 +664,14 @@ for current_run in total_run:
         
         # ------Prepare to start Routine "trial"-------
         # update component parameters for each repeat
-        if random()>0.5:
+        if random()>=0.5:
             ori = 90  #this is orientation of the grating
-            correctAns = ['left','right']
+            correctAns = ['left']
+            # correctAns = ['left','right']
         else:
             ori = 0
-            correctAns = ['up','down']
+            correctAns = ['down']
+            # correctAns = ['up','down']
         grating.setColor(level, colorSpace='rgb')
         grating.setSize(stim_diam_degs)
         grating.setOri(ori)
@@ -744,7 +760,8 @@ for current_run in total_run:
                 win.callOnFlip(resp.clock.reset)  # t=0 on next screen flip
                 win.callOnFlip(resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if resp.status == STARTED and not waitOnFlip:
-                theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+                # theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+                theseKeys = resp.getKeys(keyList=['left','down'], waitRelease=False)
                 if len(theseKeys):
                     theseKeys = theseKeys[0]  # at least one key was pressed
                     
@@ -754,7 +771,8 @@ for current_run in total_run:
                     resp.keys = theseKeys.name  # just the last key pressed
                     resp.rt = theseKeys.rt
                     # was this 'correct'?
-                    if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                    #if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                    if ((resp.keys == 'left'and ori==90) or (resp.keys == 'down'and ori==0)):
                         resp.corr = 1
                     else:
                         resp.corr = 0
@@ -816,7 +834,7 @@ for current_run in total_run:
         
         # ------Prepare to start Routine "feedback"-------
         beep.setSound('A', secs=0.15, hamming=True)
-        beep.setVolume(1, log=False)
+        beep.setVolume(0.5, log=False)
         # update component parameters for each repeat
         if resp.corr==1:   #stored on last run routine
             beep.play(when=win) 
