@@ -832,9 +832,9 @@ for current_run in total_run:
         # update component parameters for each repeat
         if resp.corr==1:   #stored on last run routine
             beep.play(when=win) 
-    message='Well done! You have finished Session %i. \n\nPress SPACE bar to continue.'%(current_run+1)
-    intru_break = visual.TextStim(win, pos=[0, 0], text = message)
     if current_run<3:
+        message='Well done! You have finished Session %i. \n\nPress SPACE bar to continue.'%(current_run+1)
+        intru_break = visual.TextStim(win, pos=[0, 0], text = message)
         intru_break.draw()
         win.flip()
         event.waitKeys()
