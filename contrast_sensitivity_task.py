@@ -153,8 +153,6 @@ grating = visual.GratingStim(
     color='white', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
 resp = keyboard.Keyboard()
-message='Well done! You have finished session %i. Press SPACE bar to continue.'%(current_run)
-intru_break = visual.TextStim(win, pos=[0, 0], text = message)
 
 # Initialize components for Routine "thanks"
 thanksClock = core.Clock()
@@ -652,11 +650,6 @@ for current_run in total_run:
     # initialise values for first condition
     level = loop_trial._nextIntensity  # initialise some vals
     condition = loop_trial.currentStaircase.condition
-    if current_run<3:
-        intru_break.draw()
-        win.flip()
-        event.waitKeys()
-    current_run=current_run+1
     for level, condition in loop_trial:
         currentLoop = loop_trial
         # abbreviate parameter names if possible (e.g. rgb=condition.rgb)
@@ -839,6 +832,13 @@ for current_run in total_run:
         # update component parameters for each repeat
         if resp.corr==1:   #stored on last run routine
             beep.play(when=win) 
+    message='Well done! You have finished Session %i. \n\nPress SPACE bar to continue.'%(current_run+1)
+    intru_break = visual.TextStim(win, pos=[0, 0], text = message)
+    if current_run<3:
+        intru_break.draw()
+        win.flip()
+        event.waitKeys()
+    current_run=current_run+1
 # all staircases completed
 
 # ------Prepare to start Routine "thanks"-------
