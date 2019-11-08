@@ -89,14 +89,14 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT or RIGHT key if you see the stripes are horizontal, UP or DOWN key if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT key if you see the stripes are horizontal, DOWN key if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
 endInstructions = keyboard.Keyboard()
-instructions_practice=visual.TextStim(win, pos=[0, 0], text = 'Pay attention to the orientation of the stripes, NOT moving direction.The patches of stripes will automatically appear in the screen following the black dots.You do not need to press a button to generate it. \n\nLet us have a few more practice trials. Press SPACE bar to continue.')
+instructions_practice=visual.TextStim(win, pos=[0, 0], text = 'You need to detect the orientation of the stripes, NOT moving direction.The patches of stripes will automatically appear in the screen following the black dots.You do not need to press a button to generate it. \n\nLet us have a few more practice trials. Press SPACE bar to continue.')
 
 # Initialize components for Routine "trial"
 trialClock = core.Clock()
@@ -303,10 +303,12 @@ for level, condition in loop_practice:
     # update component parameters for each repeat
     if random()>=0.5:
         ori = 90  #this is orientation of the grating
-        correctAns = ['left','right']
+        # correctAns = ['left','right']
+        correctAns = ['left']
     else:
         ori = 0
-        correctAns = ['up','down']
+        # correctAns = ['up','down']
+        correctAns = ['down']
     grating.setColor(level, colorSpace='rgb')
     grating.setSize(stim_diam_degs)
     grating.setOri(ori)
@@ -394,7 +396,8 @@ for level, condition in loop_practice:
             win.callOnFlip(resp.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if resp.status == STARTED and not waitOnFlip:
-            theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+            # theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+            theseKeys = resp.getKeys(keyList=['left', 'down'], waitRelease=False)
             if len(theseKeys):
                 theseKeys = theseKeys[0]  # at least one key was pressed
                 
@@ -404,8 +407,9 @@ for level, condition in loop_practice:
                 resp.keys = theseKeys.name  # just the last key pressed
                 resp.rt = theseKeys.rt
                 # was this 'correct'?
-                if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
-                    resp.corr = 1
+                # if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                if ((resp.keys == 'left'and ori==90) or (resp.keys == 'down'and ori==0)):
+                   resp.corr = 1
                 else:
                     resp.corr = 0
                 # a response ends the routine
@@ -661,10 +665,12 @@ for current_run in total_run:
         # update component parameters for each repeat
         if random()>=0.5:
             ori = 90  #this is orientation of the grating
-            correctAns = ['left','right']
+            correctAns = ['left']
+            # correctAns = ['left','right']
         else:
             ori = 0
-            correctAns = ['up','down']
+            correctAns = ['down']
+            # correctAns = ['up','down']
         grating.setColor(level, colorSpace='rgb')
         grating.setSize(stim_diam_degs)
         grating.setOri(ori)
@@ -753,7 +759,8 @@ for current_run in total_run:
                 win.callOnFlip(resp.clock.reset)  # t=0 on next screen flip
                 win.callOnFlip(resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if resp.status == STARTED and not waitOnFlip:
-                theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+                # theseKeys = resp.getKeys(keyList=['left', 'right', 'up', 'down'], waitRelease=False)
+                theseKeys = resp.getKeys(keyList=['left','down'], waitRelease=False)
                 if len(theseKeys):
                     theseKeys = theseKeys[0]  # at least one key was pressed
                     
@@ -763,7 +770,8 @@ for current_run in total_run:
                     resp.keys = theseKeys.name  # just the last key pressed
                     resp.rt = theseKeys.rt
                     # was this 'correct'?
-                    if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                    #if ((resp.keys == 'left'and ori==90) or (resp.keys == 'right' and ori==90) or (resp.keys == 'up'and ori==0) or (resp.keys == 'down'and ori==0)):
+                    if ((resp.keys == 'left'and ori==90) or (resp.keys == 'down'and ori==0)):
                         resp.corr = 1
                     else:
                         resp.corr = 0
