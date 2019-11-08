@@ -89,7 +89,7 @@ defaultKeyboard = keyboard.Keyboard()
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
 instrText = visual.TextStim(win=win, name='instrText',
-    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press the LEFT key if you see the stripes are horizontal, DOWN key if you see the stripes are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
+    text="You will see a small patch of black and white stripes which is horizontal or vertical. Press LEFT if the stripes are horizontal, DOWN if they are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
     font='Arial',
     pos=[0, 0], height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
@@ -153,7 +153,8 @@ grating = visual.GratingStim(
     color='white', colorSpace='rgb', opacity=1,blendmode='avg',
     texRes=128, interpolate=True, depth=-2.0)
 resp = keyboard.Keyboard()
-intru_break = visual.TextStim(win, pos=[0, 0], text = 'Well done! You have finished one session of trials. Press SPACE bar to continue.')
+message='Well done! You have finished session %i. Press SPACE bar to continue.'%(current_run)
+intru_break = visual.TextStim(win, pos=[0, 0], text = message)
 
 # Initialize components for Routine "thanks"
 thanksClock = core.Clock()
