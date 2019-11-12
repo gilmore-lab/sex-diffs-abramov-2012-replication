@@ -130,7 +130,7 @@ beep.setVolume(0.5)
 # Initialize components for Routine "instruction_trial"
 instruction_trialClock = core.Clock()
 text = visual.TextStim(win=win, name='text',
-    text="Good job!\n\nPay attention to the directions of the stripes, NOT their moving direction.\n\nThe trials will be really hard. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to get started!",
+    text="Good job!\n\nPay attention to the directions of the stripes, NOT their moving direction.\n\nThe trials will get harder and harder. If you don't see anything then guess! You will hear beep sound with correct answers. Your goal is accuracy, not speed.\n \n Do you have any questions? If not, press SPACE bar to start the real trials!",
     font='Arial',
     pos=(0, 0), height=1, wrapWidth=None, ori=0, 
     color='white', colorSpace='rgb', opacity=1, 
