@@ -88,6 +88,8 @@ defaultKeyboard = keyboard.Keyboard()
 
 # Initialize components for Routine "instruction_practice"
 instruction_practiceClock = core.Clock()
+welcome  = visual.TextStim(win, pos=[0, 0], 
+    text = 'Welcome to the contrast sensitivity study.\n\nPress SPACE bar to continue.')
 instrText = visual.TextStim(win=win, name='instrText',
     text="You will see a small patch of black and white stripes which is horizontal or vertical. Press LEFT if the stripes are horizontal, DOWN if they are vertical. \n\nYour goal is accuracy, not speed.\n \n Next you will have several practice trials. Press SPACE bar to continue.",
     font='Arial',
@@ -168,6 +170,12 @@ key_resp_3 = keyboard.Keyboard()
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine 
+
+# welcome
+welcome.draw()
+win.flip()
+event.waitKeys()
+win.flip()
 
 # ------Prepare to start Routine "instruction_practice"-------
 # update component parameters for each repeat
